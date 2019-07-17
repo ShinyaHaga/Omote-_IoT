@@ -5,13 +5,17 @@ contract Waterworks {
     address public owner;
     uint256 public basic_charge;
     uint256 public exceedance_money;
-    mapping (address => bool) public is_supplied;
-    mapping (address => uint256) public amount_of_water;
-    mapping (address => uint256) public carryover_maney;
-    mapping (address => uint256) public carryover_counter;
-    mapping (address => bool) public is_not_paid;
-    mapping (address => uint256[]) public history;
-    mapping (address => uint256) public start_month;
+    mapping (address => MemberStatus) public member;
+    
+    struct MemberStatus {
+        uint256 start_month;
+        bool is_supplied;
+        uint256 amount_of_water;
+        uint256 carryover_maney;
+        uint256 carryover_counter;
+        bool is_not_paid;
+        uint256[] history;
+    }
     
     modifier onlyOwner(){
         if(msg.sender != owner) revert();
@@ -25,13 +29,13 @@ contract Waterworks {
     
     //水道サービスを開始する（オーナーが実行）
     function startService(address _useraddress) public onlyOwner {
-        is_supplied[_useraddress] = true;
+        member[_useraddress].is_supplied = true;
     }
     
     //水道料金の計算
     function calcCharge() public returns (uint) {
         uint256 charge;
-        charge = (basic_charge + calcCommodityCharge(amount_of_water[msg.sender])) * 108 / 100;
+        charge = (basic_charge + calcCommodityCharge(member[msg.sender].amount_of_water)) * 108 / 100;
         return charge;
     }
     
@@ -42,21 +46,19 @@ contract Waterworks {
     
     //履歴を返す
     function getHistory() public view returns (uint[] memory, uint) {
-        uint256 array_length = history[msg.sender].length;
+        uint256 array_length = member[msg.sender].history.length;
         uint256[] memory arrayMemory = new uint256[](array_length);
-        arrayMemory = history[msg.sender];
-        return (arrayMemory, start_month[msg.sender]);
+        arrayMemory = member[msg.sender].history;
+        return (arrayMemory, member[msg.sender].start_month);
     }
     
     //水道を止める
     function stopSupply() public onlyOwner {
-        if (carryover_counter[msg.sender] >= 3) {
-            is_supplied[msg.sender] = false;
+        if (member[msg.sender].carryover_counter >= 3) {
+            member[msg.sender].is_supplied = false;
         }
     }
 }
-
-
 
 
 
