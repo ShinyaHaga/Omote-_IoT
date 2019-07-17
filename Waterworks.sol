@@ -5,7 +5,7 @@ contract Waterworks {
     address public owner;
     uint256 public basic_charge;
     uint256 public exceedance_money;
-    mapping (address => bool) public is_started_water;
+    mapping (address => bool) public is_supplied;
     mapping (address => uint256) public amount_of_water;
     mapping (address => uint256) public carryover_maney;
     mapping (address => uint256) public carryover_counter;
@@ -25,7 +25,7 @@ contract Waterworks {
     
     //水道サービスを開始する（オーナーが実行）
     function startService(address _useraddress) public onlyOwner {
-        is_started_water[_useraddress] = true;
+        is_supplied[_useraddress] = true;
     }
     
     //水道料金の計算
@@ -51,11 +51,10 @@ contract Waterworks {
     //水道を止める
     function stopSupply() public onlyOwner {
         if (carryover_counter[msg.sender] >= 3) {
-            is_started_water[msg.sender] = false;
+            is_supplied[msg.sender] = false;
         }
     }
 }
-
 
 
 
