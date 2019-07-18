@@ -35,6 +35,11 @@ contract Waterworks {
         member[_useraddress].start_month = _start_month;
     }
     
+    //水道サービスを停止する（オーナーが実行）
+    function stopService(address _useraddress) public onlyOwner {
+        member[_useraddress].is_supplied = false;
+    }
+    
     //支払い料金の計算
     function calcPaymentAmount() public returns (uint) {
         member[msg.sender].payment_amount = calcCharge();
@@ -57,6 +62,9 @@ contract Waterworks {
         if(member[msg.sender].payment_amount != msg.value) revert();
         collected_money += msg.value;
         member[msg.sender].not_pay_counter = 0;
+        if(!member[msg.sender].is_supplied) {
+            restartSupply();
+        }
     }
     
     //使用水量の登録
@@ -64,6 +72,7 @@ contract Waterworks {
         member[msg.sender].amount_of_water = _amount_of_water;
         member[msg.sender].history.push(_amount_of_water);
         member[msg.sender].not_pay_counter++;
+        stopSupply();
         return calcPaymentAmount();
     }
     
@@ -75,12 +84,15 @@ contract Waterworks {
         return (arrayMemory, member[msg.sender].start_month);
     }
     
+    //水道を再開する
+    function restartSupply() public {
+        member[msg.sender].is_supplied = true;
+    }
+    
     //水道を止める
-    function stopSupply() public onlyOwner {
+    function stopSupply() public {
         if (member[msg.sender].not_pay_counter >= 3) {
             member[msg.sender].is_supplied = false;
         }
     }
 }
-
-
