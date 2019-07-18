@@ -30,8 +30,9 @@ contract Waterworks {
     }
     
     //水道サービスを開始する（オーナーが実行）
-    function startService(address _useraddress) public onlyOwner {
+    function startService(address _useraddress, uint _start_month) public onlyOwner {
         member[_useraddress].is_supplied = true;
+        member[_useraddress].start_month = _start_month;
     }
     
     //支払い料金の計算
