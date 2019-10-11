@@ -1,0 +1,30 @@
+.head h1 {
+    width: 976px;
+    height: 80px;
+    margin: 0 auto;
+    padding-left: 10px;
+    font-size: 40px;
+    font-weight: normal;
+    line-height: 80px;
+    letter-spacing: 0.1em;
+    background-color: #e0ffff;
+}
+
+.main {
+    position: relative;
+}
+
+.footer {
+    background-color: #c56565;
+}
+
+.footer small {
+    color: #fff;
+    font-size: 11px;
+    text-align: right;
+    width: 976px;
+    margin: 0 auto;
+    height: 200px;
+    line-height: 200px;
+    letter-spacing: 0.15em;
+}

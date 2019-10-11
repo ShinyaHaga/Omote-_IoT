@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>水道管理アプリ</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+<script src="js/bootstrap.bundle.js"></script>
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/main.css" rel="stylesheet">
+<script src="js/main.js"></script>
+</head>
+<body>
+<div class="p-3">
+	<header class="head">
+		<h1>
+			<b>水道自動決済アプリケーション
+		</h1>
+	</header>
+	<div class="main">
+		<div id="networkid"></div>
+		<div id="accounts"></div>
+		<div id="txhash"></div>
+		<br>
+		<div class="mx-auto" style="width:640px;">
+		<div id="arrears" class="text-danger"></div>
+		<table class="table table-striped">
+		  <thead>
+			<tr>
+				<th>月</th>
+				<th>使用量</th>
+				<th>料金(wei)</th>
+			</tr>
+		  </thead>
+		  <tbody>
+			<tr>
+				<td>先月</td>
+				<td id="amount1"></td>
+				<td id="charge1"></td>
+			</tr>
+			<tr>
+				<td>先々月</td>
+				<td id="amount2"></td>
+				<td id="charge2"></td>
+			</tr>
+			<tr>
+				<td>3ヶ月前</td>
+				<td id="amount3"></td>
+				<td id="charge3"></td>
+			</tr>
+			</tbody>
+		</table>
+		</div>
+		<br>
+		<br>
+		<div class="mx-auto" style="width:720px;">
+		<canvas id="ex_chart"></canvas>
+		<br>
+		<div id="balance" class="h5"></div>
+				<form>
+			<input type="text" id="deposit"> <input type="button"
+				value="送金" onclick="Deposit()">
+			<div class="button"></div>
+		</form>
+		<br><br>
+		<div id="unpaid" class="text-danger h5"></div>
+		<div id="sendUnpaid"></div>
+		<br><br>
+		<p class="h5">使用量入力</p>
+		<form name="form_sw">
+			<div id="onWorking" class="text-danger h4"></div>
+			<input type="text" id="amountofWater" class="inputWater"> <input
+				type="button" value='送信' onclick="setAmountofWater()"
+				class="inputWater"> <input type="button" name="bstart"
+				value="start" onclick="start_count()" class="inputWater"></input> <input
+				type="button" name="reset" value="reset" onclick="reset_form()"
+				class="inputWater"></input>
+		</form>
+		<br>
+		<br>
+		<br>
+		</div>
+	</div>
+  <a href="waterserver_index.html">登録ページはこちら</a>
+	<footer class="footer">omete_IoT</footer>
+	</div>
+</body>
+</html>

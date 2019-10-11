@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>水道管理アプリ</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script src="https://code.jquery.com/jquery-3.4.0.min.js"></script>
+<link href="./server.css" rel="stylesheet">
+<script src="./serverindex.js"></script>
+<script src="./init.js"></script>
+</head>
+<body>
+<header class="head">
+  <h1><b>水道自動決済アプリケーション管理ページ</h1>
+</header>
+<div class="main">
+<div id="networkid"></div>
+<div id="accounts"></div>
+<br>
+<p>個人情報登録フォーム
+<p>登録情報を入力してください
+<form>
+  <input type="text" class="name"><br>
+  <input type="text" class="your address"><br>
+  <input type="text" class="tel"><br>
+  <input type="text" class="mail"><br>
+  <input type="text" class="account"><br>
+</form>
+<button onclick="Resist()">送信</button>
+<div id="list">
+</div>
+<footer class="footer">omete_IoT</footer>
+</body>
+</html>
